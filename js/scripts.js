@@ -1,45 +1,45 @@
 //Global constants created 
-const searchContainer = document.getElementsByClassName('search-container')//
+const searchContainer = document.getElementsByClassName('search-container')
 const gallery = document.getElementById('gallery')//select gallery markup 
+const url = 'https://randomuser.me/api/?results=12&inc=picture,name,email,location,&nat=us'
 let employees = [];
 
-
-//creating constants to select classes of each property 
-// const image = document.getElementsByClassName('.card-img');
-// const firstName = document.getElementsByClassName('.card-name cap'); 
-// const email = document.querySelector('.card-text');
-// const city = document.querySelector('.card-text cap');
-
+// ------------------------------------------
+//  FETCH FUNCTIONS
+// ------------------------------------------
 //create a function that displays information for 12 people tha include their image, first+last name, email, and location
+//create a fetch  to generate the data needed for each of the 12 profiles 
+fetch (url)
+    .then(res=> res.json())
+    .then(data => console.log(data.results));
 
-function peopleToDisplay (image, name, email, location){
-let html = 
-`<div class="card">
-<div class="card-img-container">
-    <img class="card-img" src="https://placehold.it/90x90" alt="profile picture">
-</div>
-<div class="card-info-container">
-    <h3 id="name" class="card-name cap">${firstName}</h3>
-    <p class="card-text">${email}</p>
-    <p class="card-text cap">${location}</p>
-</div>`;
+//Promise fetch data to load ???
+//   Promise.all([
+//     fetchData(url)
+//   ])
+
+// ------------------------------------------
+//  HELPER FUNCTIONS
+// ------------------------------------------
+function usersToDisplay (user){
+gallery.innerHTML = '';
+
+for (let i=0; i<gallery.length; i++) {
+    let html = 
+    `<div class="card">
+    <div class="card-img-container">
+        <img class="card-img" src="${user[i].picture.medium}" alt="profile picture">
+    </div>
+    <div class="card-info-container">
+        <h3 id="name" class="card-name cap">${user[i].name.first} ${user[i].name.last}</h3>
+        <p class="card-text">${user[i].email}</p>
+        <p class="card-text cap">${user[i].location.city}</p>
+    </div>`; 
 }
 
-//create a fetch  to generate the data needed for each of the 12 profiles 
-fetch("https://randomuser.me/")
-    .then(response => response.json())
-    .then(data => console.log(data.message))
+html.insertAdjacentHTML('beforeend', 'HTML string')
+}
 
-    // .then (checkStatus);
-    // .then((response) => response.json)
-    // .then((data) => console.log(data));
-
-//   Promise.all([
-//     fetchData('https://randomuser.me/')
-//   ])
-//   fetch("https://randomuser.me/api/?format=json")
-//   .then((response) => response.json)
-//   .then((data) => console.log(data));
 
   
 
