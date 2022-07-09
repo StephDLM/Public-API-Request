@@ -1,9 +1,8 @@
 //Global constants created 
 const searchContainer = document.getElementsByClassName('search-container');
 const gallery = document.getElementById('gallery');//select gallery markup 
-const url = 'https://randomuser.me/api/?results=12&inc=picture,name,email,location,&nat=US';
+const url = 'https://randomuser.me/api/?results=12&inc=picture,name,email,location,cell,dob&nat=US';
 let users = [];
-const modalContainer = document.getElementsByClassName("modal-container");
 const button = document.querySelector("button");
 const div = document.querySelectorAll("card-img-container")
 
@@ -15,7 +14,7 @@ Promise.all([fetchData(url)])
     .then(data => {
         users = data[0].results
         usersToDisplay(users);
-        userCards(index);
+        // userCards(i);
   });
 //   console.log(Error.response)
 
@@ -45,7 +44,7 @@ function usersToDisplay(users){
 gallery.innerHTML = '';
 for (let i=0; i<users.length; i++) {
     let html = 
-    `<div class="card" >
+    `<div class="card" data-index=${i}>
     <div class="card-img-container">
         <img class="card-img" src="${users[i].picture.medium}" alt="profile picture">
     </div>
@@ -67,46 +66,58 @@ gallery.addEventListener("click", (e) =>{
   if (e.target !== gallery ){
    let card = e.target.closest(".card");
    console.log(card)
-   usersToDisplay(users);
+   const i = card.getAttribute("data-index");
+  //  usersToDisplay(users);
+   userCards(i);
+  //  console.log(i)
+
   }
 })
-  userCards(index);
 
 
 // Create a function to show the modal that accepts an index
-function userCards(index) {
+function userCards(i) {
 //create an object that holds employee information to store in an index
-  const { picture, name, email, phone, location : {street, city, state, zip },dob } = users[index];
-  const birthDate = new Date(dob.date);
-  const phoneNumber = phone.replace(/-/, ' ');
-  // for (let i=0; i<users.length; i++) { //create a for loop to iterate through all of the card information
+  let { picture: {large}, name: {first, last}, dob, email, cell, location : {street, city, state, postcode } } = users[i];
+  // let birthDate = new Date(dob.date);
+  let month = new Date(dob.date).getMonth();
+  let day = new Date(dob.date).getDay();
+  let year = new Date(dob.date).getFullYear();
   // Use that user object to generate the HTML for the Modal
-
-    let htmlModal = `
+    const htmlModal = `
     <div class="modal-container" >
     <div class="modal">
         <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
         <div class="modal-info-container">
-            <img class="modal-img" src="${picture.large}">
-            <h3 id="name" class="modal-name cap">${name.first} ${name.last}</h3>
+            <img class="modal-img" src="${large}">
+            <h3 id="name" class="modal-name cap">${first} ${last}</h3>
             <p class="modal-text">${email}</p>
-            <p class="modal-text cap">${location.city}</p>
+            <p class="modal-text cap">${city}</p>
             <hr>
-            <p class="modal-text">${phone}(</p>
-            <p class="modal-text">${street.number} ${street.name} ${city}, ${state} ${zip}</p>
-            <p class="modal-text">Birthday: ${birthDate.getMonth()}/${birthDate.getDate()}/${birthDate.getFullYear()}</p>
+            <p class="modal-text">${cell}</p>
+            <p class="modal-text">${street.number} ${street.name}, ${city}, ${state} ${postcode}</p>
+            <p class="modal-text">Birthday: ${month}/${day}/${year}</p>
         </div>
     </div>`;
-}
+
 
 // Append the modal HTML to the body of the document
 document.body.insertAdjacentHTML('beforeend', htmlModal) //insert in the html to the document body 
 
 //close button 
-const closeModel = document.getElementById("modal-close-btn"); //select the close modal id 
-closeModel.addEventListener("click", e => { //add event listener to close modal 
- modalContainer.style.display = "none";
+const closeModal = document.getElementById("modal-close-btn"); //select the close modal id 
+const modalContainer = document.querySelector(".modal-container");
+closeModal.addEventListener("click", () => { //add event listener to close modal 
+  modalContainer.style.display = "none";
+  console.log("click");
 });
+}
 
-
- 
+// function formatPhoneNumber(cell) {
+//   var cleaned = ('' + cell).replace(/\D/g, '');
+//   var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+//   if (match) {
+//     return '(' + match[1] + ') ' + match[2] + '-' + match[3];
+//   }
+//   return null;
+// }
