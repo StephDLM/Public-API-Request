@@ -108,8 +108,8 @@ document.body.insertAdjacentHTML('beforeend', htmlModal) //insert in the html to
 const closeModal = document.getElementById("modal-close-btn"); //select the close modal id 
 const modalContainer = document.querySelector(".modal-container");
 closeModal.addEventListener("click", () => { //add event listener to close modal 
-  modalContainer.style.display = "none";
-  console.log("click");
+  // modalContainer.style.display = "none"; ---> why wont this work????
+  modalContainer.remove(); 
 });
 }
 
