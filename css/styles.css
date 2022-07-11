@@ -87,7 +87,7 @@ header h1 {
     padding: 10px;
     background: rgba(245, 245, 245, 0.9);
     border-radius: 0.25em;
-    border: 1px solid rgba(50, 50, 50, 0.3);
+    border: 1px solid rgba(158, 70, 151, 0.3);
     transition: .4s ease-out;
     overflow: hidden;
 }
@@ -138,7 +138,7 @@ header h1 {
     min-height: 415px;
     margin: 10px auto auto;
     padding-bottom: 15px;
-    background: rgba(255, 255, 255, 1);
+    background: rgb(228, 168, 212);
     border-radius: 0.25em;
     border: 1px solid rgba(100, 100, 100, 0.3);
     transition: .4s ease-out;
@@ -150,7 +150,7 @@ header h1 {
     right: 15px;
     cursor: pointer;
     color: rgba(255, 255, 255, 0.9);
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(226, 41, 41, 0.8);
     border-radius: 0.25em;
     border: 1px solid rgba(50, 50, 50, 0.3);
 }
@@ -244,7 +244,7 @@ header h1 {
 @media (min-width: 1024px) {
 
     .card:hover {
-        background: rgba(255, 255, 255, 1);
+        background: rgb(122, 176, 36);
         border: 1px solid rgba(50, 50, 50, 0.9);
     }
 
@@ -253,7 +253,7 @@ header h1 {
     }
 
     .btn:hover {
-        background: rgba(255, 255, 255, 1);
+        background: rgb(89, 234, 210);
         color: rgba(25, 25, 25, 1); 
     }
 }

@@ -80,7 +80,7 @@ function userCards(i) {
 //create an object that holds employee information to store in an index
   let { picture: {large}, name: {first, last}, dob, email, cell, location : {street, city, state, postcode } } = users[i];
   // let birthDate = new Date(dob.date);
-  let month = new Date(dob.date).getMonth();
+  let month = new Date(dob.date).getMonth()+1;
   let day = new Date(dob.date).getDay();
   let year = new Date(dob.date).getFullYear();
   // Use that user object to generate the HTML for the Modal
